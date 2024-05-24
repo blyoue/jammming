@@ -29,7 +29,8 @@ const getSongs = async (searchTerm) => {
     console.log("fetching with token" + token);
     const options = {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
     };
 
@@ -61,6 +62,7 @@ const getUserId = async () => {
         method: "GET",  
         headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
     };
     console.log("getting userid with token:" + token)
