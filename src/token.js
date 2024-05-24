@@ -15,7 +15,7 @@ const getToken = async () => {
         token = accessTokenMatch[1];
         const expiresIn = Number(expiresInMatch[1]);
         window.setTimeout(() => token = '', expiresIn * 1000);
-        window.history.pushState('Access Token', null, redirectUri); // This clears the parameters, allowing us to grab a new access token when it expires.
+        window.history.pushState('Access Token', null, decodeURIComponent(redirectUri)); // This clears the parameters, allowing us to grab a new access token when it expires.
         console.log("Token obtained:", token);
         return token;
     } else {
