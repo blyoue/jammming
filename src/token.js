@@ -1,5 +1,5 @@
 const client_id = 'd513a4a5b1ea49ae9b42c4ee97ae6d9d';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'https://jammming-roan.vercel.app/';
 let token;
 const getToken = async () => {
     if (token) {
