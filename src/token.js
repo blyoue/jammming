@@ -1,5 +1,8 @@
 const client_id = 'd513a4a5b1ea49ae9b42c4ee97ae6d9d';
-const redirectUri = 'https://jammming-roan.vercel.app/';
+
+const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
+// const redirectUri = 'http://localhost:3000/';
+const scopes = encodeURIComponent('playlist-modify-public playlist-modify-private user-read-email user-read-private');
 let token;
 const getToken = async () => {
     if (token) {
@@ -16,7 +19,7 @@ const getToken = async () => {
         console.log("Token obtained:", token);
         return token;
     } else {
-        const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public playlist-modify-private user-read-private user-read-email&redirect_uri=${redirectUri}`;
+        const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
         window.location = accessUrl;
     }
 }
