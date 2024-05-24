@@ -3,21 +3,24 @@ const redirectUri = 'https://jammming-roan.vercel.app/';
 let token;
 const getToken = async () => {
     if (token) {
+        console.log(token);
         return token;
     } 
     const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
     if (accessTokenMatch && expiresInMatch) {
-      token = accessTokenMatch[1];
-      const expiresIn = Number(expiresInMatch[1]);
-      window.setTimeout(() => token = '', expiresIn * 1000);
-      window.history.pushState('Access Token', null, '/'); // This clears the parameters, allowing us to grab a new access token when it expires.
-      return token;
+        token = accessTokenMatch[1];
+        const expiresIn = Number(expiresInMatch[1]);
+        window.setTimeout(() => token = '', expiresIn * 1000);
+        window.history.pushState('Access Token', null, redirectUri); // This clears the parameters, allowing us to grab a new access token when it expires.
+        console.log(token);
+        return token;
     } else {
-      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public playlist-modify-private&redirect_uri=${redirectUri}`;
-      window.location = accessUrl;
+        const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=playlist-modify-public playlist-modify-private&redirect_uri=${redirectUri}`;
+        window.location = accessUrl;
     }
 }
+
 
 const getSongs = async (searchTerm) => {
     const apiUrl = 'https://api.spotify.com/v1/search';
@@ -65,7 +68,7 @@ const getUserId = async () => {
         const response = await fetch(userEndpoint, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            console.log(jsonResponse.id);
+            console.log("user_id: "+jsonResponse.id);
             return jsonResponse.id;
         }
     } catch (error) {console.log(error);}
@@ -90,7 +93,7 @@ const createPlaylist = async (name) => {
         const response = await fetch(addPlaylistEndpoint, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            console.log(jsonResponse.id);
+            console.log("playlist_id"+jsonResponse.id);
             return jsonResponse.id;
         } else {
             throw new Error('Unable to create playlist');
