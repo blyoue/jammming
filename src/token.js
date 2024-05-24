@@ -26,7 +26,7 @@ const getSongs = async (searchTerm) => {
     const query = `?q=${term}&type=track&limit=10`
     const urlToFetch = apiUrl+query
     const token = await getToken();
-    console.log("fetching with token" + token);
+    console.log("fetching with token: \n" + token);
     const options = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const createPlaylist = async (name) => {
         const response = await fetch(addPlaylistEndpoint, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            console.log("playlist_id"+jsonResponse.id);
+            console.log("playlist id: "+jsonResponse.id);
             return jsonResponse.id;
         } else {
             throw new Error('Unable to create playlist');
@@ -122,7 +122,7 @@ const addPlaylist = async (playlistName, tracks) => {
         const response = await fetch(endPoint, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            console.log(jsonResponse);
+            console.log('successfully added the playlist. playlist snapshot: ' + jsonResponse);
             return jsonResponse;
         }
     } catch (error) {console.log(error);}
