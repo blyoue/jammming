@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App bg-blue-200 background overflow-y-auto">
       <SearchBar onSearch={handleSearch} searchTerm={searchTerm} />
-      <div className='flex justify-around mb-32 items-start'>
+      <div className='flex justify-around mb-32 mx-32 items-start'>
         <SearchResults onAdd={handleAddTracks} results={results} />
         <Playlist onRemove={handleRemove} playlist={playlist} onAddPlaylist={handleAddPlaylist} />
       </div>
