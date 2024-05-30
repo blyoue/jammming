@@ -38,7 +38,7 @@ function SearchBar({ onSearch, searchTerm }) {
                         id='searchbox'
                     />
                     <br/>
-                    <input type='submit' className='bg-blue-900/80 rounded-3xl w-28 h-10 text-center hover:shadow-lg hover:border hover:border-white' value='search' id='button'/>
+                    <input type='submit' className='bg-blue-900/80 rounded-3xl w-28 h-10 text-center hover:bg-blue-700/80 transition-all hover:shadow-xl' value='search' id='button'/>
                 </form>                
             </div>
         </div>  
