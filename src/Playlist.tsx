@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import Tracklist from './Tracklist';
-function Playlist({ playlist, onRemove, onAddPlaylist }) {
-    const [playlistName, setPlaylistName] = useState("");
-    const handleChange = (e) => {
+import { Song } from './types';
+
+interface PlaylistProps {
+    playlist: Song[];
+    onRemove: (id: string) => void;
+    onAddPlaylist: (name: string, tracks: Song[]) => void;
+  }
+
+
+function Playlist({ playlist, onRemove, onAddPlaylist }: PlaylistProps) {
+    const [playlistName, setPlaylistName] = useState<string>("");
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPlaylistName(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(!playlistName || playlist.length === 0) {
             return;

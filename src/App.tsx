@@ -5,27 +5,34 @@ import SearchResults from './SearchResults';
 import React, { useState } from 'react';
 import { addPlaylist } from './token';
 
-function App() {
-  const [searchTerm, setSearchTerm] = useState([]);
-  const [playlist, setPlaylist] = useState([]);
-  const [results, setResults] = useState([]);
+interface Song {
+  title: string;
+  artist: string[];
+  uri: string;
+  album: string;
+}
 
-  const handleAddTracks = (IdToAdd) => {
-    const songToAdd = results.find(song => song.uri === IdToAdd);
-    if (!playlist.includes(songToAdd)) {
+function App() {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [playlist, setPlaylist] = useState<Song[]>([]);
+  const [results, setResults] = useState<Song[]>([]);
+
+  const handleAddTracks = (IdToAdd: string) => {
+    const songToAdd = results.find((song: Song) => song.uri === IdToAdd);
+    if (songToAdd && !playlist.includes(songToAdd)) {
       setPlaylist(prev => [...prev, songToAdd]);
     }
   }
 
-  const handleRemove = (idToRemove) => {
+  const handleRemove = (idToRemove: string) => {
     setPlaylist(prev => prev.filter((song) => song.uri !== idToRemove));
   };
 
-  const handleSearch = (newresults) => {
+  const handleSearch = (newresults: Song[]) => {
     setResults(newresults);
   };
 
-  const handleAddPlaylist = async (playlistName, tracks) => {
+  const handleAddPlaylist = async (playlistName: string, tracks: Song[]) => {
     const response = await addPlaylist(playlistName, tracks);
     if ('snapshot_id' in response) {
       alert('Playlist Saved!')

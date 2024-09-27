@@ -1,9 +1,11 @@
+import { Song, SpotifyTrack } from "./types";
+
 const client_id = 'd513a4a5b1ea49ae9b42c4ee97ae6d9d';
 
-const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
-// const redirectUri = 'http://localhost:3000/';
+// const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
+const redirectUri = 'http://localhost:3000/';
 const scopes = encodeURIComponent('playlist-modify-public playlist-modify-private user-read-email user-read-private');
-let token;
+let token: string;
 const getToken = async () => {
     if (token) {
         console.log("Token already available:", token);
@@ -15,17 +17,17 @@ const getToken = async () => {
         token = accessTokenMatch[1];
         const expiresIn = Number(expiresInMatch[1]);
         window.setTimeout(() => token = '', expiresIn * 1000);
-        window.history.pushState('Access Token', null, decodeURIComponent(redirectUri)); // This clears the parameters, allowing us to grab a new access token when it expires.
+        window.history.pushState('Access Token', '', decodeURIComponent(redirectUri)); // This clears the parameters, allowing us to grab a new access token when it expires.
         console.log("Token obtained:", token);
         return token;
     } else {
         const accessUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
-        window.location = accessUrl;
+        window.location.assign(accessUrl);
     }
 }
 
 
-const getSongs = async (searchTerm) => {
+const getSongs = async (searchTerm: string) => {
     const apiUrl = 'https://api.spotify.com/v1/search';
     const term = searchTerm.replace(' ', '+');
     const query = `?q=${term}&type=track&limit=10`
@@ -44,7 +46,7 @@ const getSongs = async (searchTerm) => {
         const response = await fetch(urlToFetch, options);
         if (response.ok) {
             const jsonResponse = await response.json();
-            const results = jsonResponse.tracks.items.map((item) =>
+            const results = jsonResponse.tracks.items.map((item: SpotifyTrack) =>
                 ({
                     title: item.name,
                     artist: item.artists.map(artist => artist.name),
@@ -80,7 +82,7 @@ const getUserId = async () => {
         }
     } catch (error) {console.log(error);}
 };
-const createPlaylist = async (name) => {
+const createPlaylist = async (name: string) => {
     const userId = await getUserId();
     const addPlaylistEndpoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
     const token = await getToken();
@@ -109,7 +111,7 @@ const createPlaylist = async (name) => {
     } catch (error) {console.log(error);}
 }
 
-const addPlaylist = async (playlistName, tracks) => {
+const addPlaylist = async (playlistName: string, tracks: Song[]) => {
     const playlistId = await createPlaylist(playlistName);
     const endPoint = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
     const token = await getToken();

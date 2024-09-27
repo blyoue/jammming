@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html, body {
   height: 100%;
   margin: 0;
@@ -11,10 +10,15 @@ html, body {
   @apply text-stone-50
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} 
+.App, #root {
+  text-align: center;
+  height: 100%;
+}
+
+
+/* h1 {
+  margin: 0;
+} */
 
 * {
   box-sizing: border-box;
