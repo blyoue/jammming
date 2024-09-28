@@ -2,8 +2,8 @@ import { Song, SpotifyTrack } from "./types";
 
 const client_id = 'd513a4a5b1ea49ae9b42c4ee97ae6d9d';
 
-// const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
+// const redirectUri = 'http://localhost:3000/';
 const scopes = encodeURIComponent('playlist-modify-public playlist-modify-private user-read-email user-read-private');
 let token: string;
 const getToken = async () => {
