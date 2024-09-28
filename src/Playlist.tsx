@@ -39,7 +39,7 @@ function Playlist({ playlist, onRemove, onAddPlaylist }: PlaylistProps) {
                     isRemoval={true}
                 />
             <div className='flex-grow'></div>
-            <input type='submit' value="Save To Spotify" className='rounded-3xl bg-blue-900/80 hover:shadow-lg hover:bg-blue-700/80 min-w-32 h-10 w-1/2 mt-10 transition-all   ' id='submit'/>
+            <input type='submit' value="Save To Spotify" className='rounded-3xl text-stone-50 bg-blue-900/80 hover:shadow-lg hover:bg-blue-700/80 min-w-32 h-10 w-1/2 mt-10 transition-all   ' id='submit'/>
         </form>  
     );
 }
