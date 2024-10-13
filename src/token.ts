@@ -1,6 +1,6 @@
 import { Song, SpotifyTrack } from "./types";
 
-const client_id = 'd513a4a5b1ea49ae9b42c4ee97ae6d9d';
+const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
 const redirectUri = encodeURIComponent('https://jammming-roan.vercel.app/');
 // const redirectUri = 'http://localhost:3000/';
